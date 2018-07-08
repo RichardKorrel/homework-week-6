@@ -25,8 +25,10 @@ import {FETCH_ALL_GAMES, ADD_NEW_GAME} from '../actions/games'
 export default function (state = [], action) {
     switch (action.type) {
         case FETCH_ALL_GAMES:
+            // Put all the games in the store
             return action.payload
         case ADD_NEW_GAME:
+            // Add the new game to the games in the store
             return state.concat(action.payload)
         default:
             return state

@@ -16,31 +16,9 @@ class GamesContainer extends PureComponent {
         color: PropTypes.string.isRequired,
       })).isRequired
     }
-  
-    //constructor(props) {
-    //   super(props);
-    //   //this.state = {value: ''};
-    //   this.state = {
-    //     name: "",
-    //     color: "green",
-    //     board: [[" "," "," "],[" "," "," "],[" "," "," "]]
-    //   }
-    //   this.handleChange = this.handleChange.bind(this);
-    //   this.handleSubmit = this.handleSubmit.bind(this);
-    // }
-  
-    // handleChange(event) {
-    //   this.setState({value: event.target.value});
-    // }
-  
-    // handleSubmit(event) {
-    //   console.log('A name was submitted: ' + this.state.value);
-    //   event.preventDefault();
-      
-    // }
 
     state = {
-      name: "",
+      name: null,
       color: null,
       board: [[" "," "," "],[" "," "," "],[" "," "," "]]
     }
@@ -62,7 +40,10 @@ class GamesContainer extends PureComponent {
       e.preventDefault()
 
       console.log(this.state,'this.state at handleSubmit')
-      //this.props.onSubmit(this.state)
+      // Add a new game to the databasen and store 
+      // with the same supplied by the players and
+      // with a random color and
+      // with an empty playing board
       this.props.addNewGame(this.state)
       
     }
@@ -81,21 +62,23 @@ class GamesContainer extends PureComponent {
     }
 
     componentWillMount() {
+      // Get all the games from the database and put them in store
       this.props.fetchAllGames()
     }
 
     render() {
       const {games} = this.props
       return (
+        // Show all the games on the /games page
         <div>
-            <h1>Add a new game</h1>
-            <form onSubmit={this.handleSubmit}>
-              <label>
-               Name of the game:
-              <input name="name" type="text" value={this.state.value} onChange={this.handleChange} />
-              </label>
-              <input type="Submit" value="Add" />
-            </form>
+          <h1>Add a new game</h1>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+             Name of the game:
+            <input name="name" type="text" value={this.state.value} onChange={this.handleChange} />
+            </label>
+            <input type="Submit" value="Add" />
+          </form>
           <h1>All games</h1>
             <table>
                 <thead>
