@@ -134,10 +134,10 @@ class GameContainer extends PureComponent {
 
     }
 
-    play = (rowIndex,colIndex) => {
+    checkWinnerTie = () => {
       // Check whether there is a winner 
       // (including case were game is revisited)
-      if (this.checkWinner()) return
+      if (this.checkWinner()) return true
 
       // If all cells are filled and there is no winner
       // it is a tie
@@ -145,8 +145,16 @@ class GameContainer extends PureComponent {
         this.setState({
           message: 'The game resulted in a tie'
         })
-        return
+        return true
       }
+
+      return false
+    }
+    play = (rowIndex,colIndex) => {
+      // Check whether there is a winner or a tie
+      // (including case were game is revisited)
+      if (this.checkWinnerTie())
+        return
 
       this.setState({
         message: ''
@@ -174,8 +182,9 @@ class GameContainer extends PureComponent {
         this.setState({
           message: 'invalid play'
         })
-      // Check if there is a winner after play
-      this.checkWinner()
+
+      // Check whether there is a winner or a tie
+      this.checkWinnerTie()
     }
 
     showRow = (row,rowIndex) => {
